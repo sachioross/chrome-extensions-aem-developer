@@ -36,6 +36,10 @@ function getCurrentTabUrl(callback) {
 
     if (url.indexOf("editor.html") > -1) {
         url = url.replace(/\/editor\.html/g, "").replace(".html", ".5.json");
+    } else if (url.indexOf("/content/") > -1) {
+        // If not editor mode, but still in AEM (likely with /content path), then 
+        // switch back to editor
+        url = url.replace(/\.[0-9]?\.json/g, ".html").replace("/content", "/editor.html/content");
     }
       
     chrome.tabs.update({url: url});
